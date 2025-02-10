@@ -64,6 +64,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Tools\DBTools\" />
+	  <Folder Include="Tools\CheckTools\" />
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Views\" />
 	</ItemGroup>
