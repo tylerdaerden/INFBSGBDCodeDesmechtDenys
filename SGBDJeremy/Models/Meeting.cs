@@ -8,16 +8,16 @@ namespace SGBDJeremy.Models
 {
     public class Meeting
     {
-        private int _idMeeting ;
+        private int _meetingID ;
         private DateTime _dateMeeting;
         private TimeOnly _timeMeeting;
         private string _status;
 
 
-        public int IdMeeting 
+        public int MeetingID
         { 
-            get => _idMeeting;
-            set => _idMeeting = value;
+            get => _meetingID;
+            set => _meetingID = value;
         }
         public DateTime DateMeeting
         {
@@ -34,6 +34,26 @@ namespace SGBDJeremy.Models
             get => _status; 
             set => _status = value;
         }
+
+
+
+        //methods
+
+        public void ConfirmMeeting()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CancelMeeting() 
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PostponeMeeting()
+        { 
+            throw new NotImplementedException(); 
+        }
+
 
     }
 }

@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace SGBDJeremy.Models
 {
+    //Should be turn into a PopUp !!! 
     public class Notification
     {
-        private string _idNotification;
+        private string _notificationID;
         private string _type;
         private DateTime _sendDate;
         private string _status;
 
-        public string IdNotification 
+        public string NotificationID
         { 
-            get => _idNotification; 
-            set => _idNotification = value; 
+            get => _notificationID; 
+            set => _notificationID = value; 
         }
         public string Type
         {

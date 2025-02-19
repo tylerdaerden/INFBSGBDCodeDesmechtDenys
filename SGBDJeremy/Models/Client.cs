@@ -9,17 +9,17 @@ namespace SGBDJeremy.Models
     public class Client
     {
 		//props
-		private int _id_client;
+		private int _clientID;
 		private string _name;
 		private string _surname;
 		private string _phone;
 		private string _email;
 
 
-		public int Id_Client
+		public int ClientID
 		{
-			get => _id_client; 
-			set => _id_client = value; 
+			get => _clientID; 
+			set => _clientID = value; 
 		}
 		public string Name
 		{
@@ -42,8 +42,38 @@ namespace SGBDJeremy.Models
 			set => _email = value; 
 		}
 
-
 		//methods
+		public void BookAMeeting(Client clientbook , Meeting meetingbook)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void BrowseHistory()
+		{ 
+			throw new NotImplementedException(); 
+		}
+		
+		public void EmailValidation(string mail)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void PhoneValidation(string phonenumber)
+		{ 
+			throw new NotImplementedException(); 
+		}
+
+		public void NameValidation(string name)
+		{ 
+			throw new NotImplementedException();
+		}
+
+		public void SurnameValidation(string surname)
+		{
+			throw new NotImplementedException();
+		}
+
+
 
 	
 

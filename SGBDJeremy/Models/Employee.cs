@@ -9,7 +9,7 @@ namespace SGBDJeremy.Models
     public class Employee
     {
 
-        private int _id_Employee;
+        private int _employee_ID;
         private string _userName;
         private string _role;
         private bool _isAvalaible;
@@ -17,10 +17,10 @@ namespace SGBDJeremy.Models
         private string _salt;
 
 
-        public int IdEmployee 
+        public int EmployeeID 
         { 
-            get => _id_Employee;
-            set => _id_Employee = value;
+            get => _employee_ID;
+            set => _employee_ID = value;
         }
         public string UserName 
         { 
@@ -43,10 +43,29 @@ namespace SGBDJeremy.Models
             get => _passwordHash; 
             set => _passwordHash = value;
         }
+
+        //Pasword Salting = a random piece of data is added to the password before it runs through the hashing algorithm, making it unique and harder to crack. When using both hashing and salting, even if two users choose the same password, salting adds random characters to each password when the users enter them.
         public string Salt
         {
             get => _salt; 
             set => _salt = value;
+        }
+
+        //methods
+
+        public void CheckRole()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CheckPassword()
+        { 
+            throw new NotImplementedException(); 
+        }
+
+        public void CheckUserName()
+        { 
+            throw new NotImplementedException(); 
         }
 
 
