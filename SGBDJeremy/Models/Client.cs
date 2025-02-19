@@ -10,50 +10,50 @@ namespace SGBDJeremy.Models
 {
     public class Client
     {
-		//props
-		private int _clientID;
-		private string _name;
-		private string _surname;
-		private string _phone;
-		private string _email;
+        //props
+        private int _clientID;
+        private string _name;
+        private string _surname;
+        private string _phone;
+        private string _email;
 
 
-		public int ClientID
-		{
-			get => _clientID; 
-			set => _clientID = value; 
-		}
-		public string Name
-		{
-			get => _name; 
-			set => _name = value; 
-		}
-		public string Surname
-		{
-			get => _surname; 
-			set => _surname = value; 
-		}
-		public string Phone
-		{
-			get => _phone; 
-			set => _phone = value; 
-		}
-		public string Email
-		{
-			get => _email; 
-			set => _email = value; 
-		}
+        public int ClientID
+        {
+            get => _clientID;
+            set => _clientID = value;
+        }
+        public string Name
+        {
+            get => _name;
+            set => _name = value;
+        }
+        public string Surname
+        {
+            get => _surname;
+            set => _surname = value;
+        }
+        public string Phone
+        {
+            get => _phone;
+            set => _phone = value;
+        }
+        public string Email
+        {
+            get => _email;
+            set => _email = value;
+        }
 
-		//methods
-		public void BookAMeeting(Client clientbook , Meeting meetingbook)
-		{
-			throw new NotImplementedException();
-		}
+        //methods
+        public void BookAMeeting(Client clientbook, Meeting meetingbook)
+        {
+            throw new NotImplementedException();
+        }
 
-		public void BrowseHistory()
-		{ 
-			throw new NotImplementedException(); 
-		}
+        public void BrowseHistory()
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Validates an email address with the following criteria:
@@ -70,34 +70,34 @@ namespace SGBDJeremy.Models
         {
             if (!string.IsNullOrEmpty(mailtocheck) && !string.IsNullOrWhiteSpace(mailtocheck))
             {
-                if (!Regex.IsMatch(mailtocheck, @"^[a-z0-9._%+-]{1,64}@[a-z0-9-]{1,63}\.[a-z]{2,10}$", RegexOptions.IgnoreCase))
+                if (Regex.IsMatch(mailtocheck, @"^[a-z0-9._%+-]{1,64}@[a-z0-9-]{1,63}\.[a-z]{2,10}$", RegexOptions.IgnoreCase))
                 {
-                    return false;
+                    return true;
                 }
-                return true;
+                return false;
             }
             return false;
         }
 
-		/// <summary>
-		/// Validate a Belgian Phone Number based on +32 / 0032 indicators or 04 folowed by 8 numbers
-		/// returns true if phoneNumber is valid ; otherwise false.
-		/// </summary>
-		/// <param name="phonenumber"> the phone number to validate</param>
-		/// <returns>Boolean true if valid otherwise returns false</returns>
+        /// <summary>
+        /// Validate a Belgian Phone Number based on +32 / 0032 indicators or 04 folowed by 8 numbers
+        /// returns true if phoneNumber is valid ; otherwise false.
+        /// </summary>
+        /// <param name="phonenumber"> the phone number to validate</param>
+        /// <returns>Boolean true if valid otherwise returns false</returns>
         public static bool PhoneValidation(string phonenumber)
-		{
-			if(!string.IsNullOrEmpty(phonenumber) && !string.IsNullOrWhiteSpace(phonenumber))
-			{
-				//Denys note : i adapted to match with "/" or "." separators
-				if(!Regex.IsMatch(phonenumber, @"^(?:\+32|0032|0)4\d{2}[\s./]?\d{2}[\s./]?\d{2}[\s./]?\d{2}$"))
-				{
-					return false;
-				}
-				return true ;
-			}
-			return false;
-		}
+        {
+            if (!string.IsNullOrEmpty(phonenumber) && !string.IsNullOrWhiteSpace(phonenumber))
+            {
+                //Denys note : i adapted to match with "/" or "." separators
+                if (Regex.IsMatch(phonenumber, @"^(?:\+32|0032|0)4\d{2}[\s./]?\d{2}[\s./]?\d{2}[\s./]?\d{2}$"))
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
 
         /// <summary>
 		/// Validate a FamilyName : add of optionnal group in regex so it can accept composed name (ex Name-Name2 , present in certains culture or in married couples)
@@ -108,39 +108,41 @@ namespace SGBDJeremy.Models
 		/// <returns>>Boolean true if valid otherwise returns false</returns>
 		public static bool NameValidation(string name)
         {
-            if (!string.IsNullOrWhiteSpace(name))
+            if (!string.IsNullOrEmpty(name) && !string.IsNullOrWhiteSpace(name))
             {
                 if (Regex.IsMatch(name, @"^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[-' ][A-Za-zÀ-ÖØ-öø-ÿ]+)*$"))
                 {
                     return true;
                 }
+                return false;
             }
             return false;
         }
 
         /// <summary>
-        /// Validate a SurName : add of optionnal group in regex so it can accept composed name (ex SurName-SurName2)
+        /// Validate a SurName : add of optionnal group in regex so it can accept composed name up to 3 occurence (ex SurName-SurName2-Surname3)
         /// Accept a white Space between some name char (case of Name with space like "Surname1 Surname2"
         /// Add of latin char (in case of Name containing latin char like "é" , "è" , "û" , "ö" etc ...
         /// </summary>
         /// <param name="surname"></param>
         /// <returns>Boolean true if valid otherwise returns false</returns>
         public static bool SurnameValidation(string surname)
-		{
-            if (!string.IsNullOrWhiteSpace(surname))
+        {
+            if (!string.IsNullOrEmpty(surname) && !string.IsNullOrWhiteSpace(surname))
             {
                 if (Regex.IsMatch(surname, @"^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[-' ][A-Za-zÀ-ÖØ-öø-ÿ]+)*$"))
                 {
                     return true;
                 }
+                return false;
             }
             return false;
         }
 
 
 
-	
 
 
-	}
+
+    }
 }
