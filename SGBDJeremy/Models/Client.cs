@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using static Java.Util.Jar.Attributes;
+//using static Java.Util.Jar.Attributes;
 
 namespace SGBDJeremy.Models
 {
@@ -66,18 +66,30 @@ namespace SGBDJeremy.Models
         /// </summary>
         /// <param name="mailtocheck">The email address to validate.</param>
         /// <returns>B>Boolean true if valid otherwise returns false</returns>
-        public static bool EmailValidation(string mailtocheck)
+        public static bool EmailValidation(object mailtocheck)
         {
-            if (!string.IsNullOrEmpty(mailtocheck) && !string.IsNullOrWhiteSpace(mailtocheck))
-            {
-                if (Regex.IsMatch(mailtocheck, @"^[a-z0-9._%+-]{1,64}@[a-z0-9-]{1,63}\.[a-z]{2,10}$", RegexOptions.IgnoreCase))
-                {
-                    return true;
-                }
-                return false;
-            }
-            return false;
+            return mailtocheck is string email
+                   && !string.IsNullOrWhiteSpace(email)
+                   && Regex.IsMatch(email, @"^(?!.*\.\.)([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]{1,64})@([a-zA-Z0-9-]{1,63})\.([a-zA-Z]{2,10})$", RegexOptions.IgnoreCase);
         }
+
+
+        //old version
+        ///// <summary>
+        ///// Validates an email address based on strict format rules.
+        ///// </summary>
+        ///// <param name="mailtocheck">The email address to validate.</param>
+        ///// <returns>True if the email is valid; otherwise, false. add of an error message in case of type non conformity</returns>
+        //public static bool EmailValidation(object mailtocheck)
+        //{
+        //    // type verification
+        //    if (mailtocheck is not string email)
+        //    {
+        //        throw new ArgumentException("Erreur : l'email doit être une chaîne de caractères.");
+        //    }
+        //    var regex = new Regex(@"^(?!.*\.\.)([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]{1,64})@([a-zA-Z0-9-]{1,63})\.([a-zA-Z]{2,10})$", RegexOptions.IgnoreCase);
+        //    return regex.IsMatch(email);
+        //}
 
         /// <summary>
         /// Validate a Belgian Phone Number based on +32 / 0032 indicators or 04 folowed by 8 numbers
