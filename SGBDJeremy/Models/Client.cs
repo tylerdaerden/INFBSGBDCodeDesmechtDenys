@@ -73,24 +73,6 @@ namespace SGBDJeremy.Models
                    && Regex.IsMatch(email, @"^(?!.*\.\.)([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]{1,64})@([a-zA-Z0-9-]{1,63})\.([a-zA-Z]{2,10})$", RegexOptions.IgnoreCase);
         }
 
-
-        //old version
-        ///// <summary>
-        ///// Validates an email address based on strict format rules.
-        ///// </summary>
-        ///// <param name="mailtocheck">The email address to validate.</param>
-        ///// <returns>True if the email is valid; otherwise, false. add of an error message in case of type non conformity</returns>
-        //public static bool EmailValidation(object mailtocheck)
-        //{
-        //    // type verification
-        //    if (mailtocheck is not string email)
-        //    {
-        //        throw new ArgumentException("Erreur : l'email doit être une chaîne de caractères.");
-        //    }
-        //    var regex = new Regex(@"^(?!.*\.\.)([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]{1,64})@([a-zA-Z0-9-]{1,63})\.([a-zA-Z]{2,10})$", RegexOptions.IgnoreCase);
-        //    return regex.IsMatch(email);
-        //}
-
         /// <summary>
         /// Validate a Belgian Phone Number based on +32 / 0032 indicators or 04 folowed by 8 numbers
         /// returns true if phoneNumber is valid ; otherwise false.
