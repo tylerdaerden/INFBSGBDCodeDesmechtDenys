@@ -14,7 +14,7 @@
                    HorizontalOptions="Center" />
 
             <Label Text="Vos rendez-vous" FontSize="18" TextColor="White" />
-
+            <!-- Section des rdv du client  -->
             <CollectionView ItemsSource="{Binding ClientMeetings}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -30,7 +30,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <!-- Section Historique des anciens rdv -->
+            <!-- Section Historique des anciens rdv : petite diférence ajoutée , j'ai "grisée" pour mettre une différence visuelle -->
             <BoxView HeightRequest="1" BackgroundColor="Gray" Margin="0,10" />
             <Label Text="Historique de vos rendez-vous" FontSize="18" TextColor="White" />
 

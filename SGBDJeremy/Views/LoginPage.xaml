@@ -16,6 +16,7 @@
                TextColor="White"
                HorizontalOptions="Center"/>
 
+        <!-- Usage des Bindings et des commands via les Views Models , application du MVVM -->
         <Picker Title="Je suis..."
                 ItemsSource="{Binding Roles}"
                 SelectedItem="{Binding SelectedRole}"
@@ -49,6 +50,7 @@
                 FontAttributes="Bold"
                 HeightRequest="50"/>
 
+        <!-- Seul bouton avec un Clicked présent ici et non "Bindé" car simple renvoi vers une autre page, pas de logique métier => en accord avec pattern MVVM -->
         <Button Text="Créer un compte"
                 BackgroundColor="#333"
                 TextColor="White"

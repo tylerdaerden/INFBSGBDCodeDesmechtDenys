@@ -65,6 +65,9 @@ namespace SGBDJeremy.Utilities.Data
         }
 
         // Obtenir les rendez-vous d’un client donné
+        // ⚠️ Obsolète - Utiliser IMeetingRepository à la place
+        [Obsolete("Utiliser MeetingRepository via IMeetingRepository")]
+        #region OBSOLETE
         public static List<Meeting> GetMeetingsByClientId(int clientId)
         {
             var meetings = new List<Meeting>();
@@ -103,9 +106,13 @@ namespace SGBDJeremy.Utilities.Data
             }
 
             return meetings;
-        }
+        } 
+        #endregion
 
         // Ajouter un rendez-vous
+        // ⚠️ Obsolète - Utiliser IMeetingRepository à la place
+        #region OBSOLETE
+        [Obsolete("Utiliser MeetingRepository via IMeetingRepository")]
         public static void AddMeeting(Meeting meeting)
         {
             using SqlConnection connection = new SqlConnection(ConnectionString);
@@ -124,7 +131,8 @@ namespace SGBDJeremy.Utilities.Data
             cmd.Parameters.AddWithValue("@ServiceId", meeting.ServiceId);
 
             cmd.ExecuteNonQuery();
-        }
+        } 
+        #endregion
 
         public static List<Meeting> GetMeetingsByEmployeeId(int employeeId)
         {

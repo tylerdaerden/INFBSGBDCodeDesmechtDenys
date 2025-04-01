@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
+using SGBDJeremy.DAL.Interfaces;
+using SGBDJeremy.DAL.Repositories;
 using SGBDJeremy.Models;
 using SGBDJeremy.Utilities.Data;
 
@@ -58,18 +60,19 @@ namespace SGBDJeremy.ViewModels
         // Commande de réservation
         public ICommand BookMeetingCommand { get; }
 
-        public ClientHomeViewModel(int clientId)
+        private readonly IMeetingRepository _meetingRepository;
+
+        public ClientHomeViewModel(int clientId, IMeetingRepository meetingRepository = null)
         {
             ConnectedClientId = clientId;
-
-            // Commande liée au bouton "Réserver"
+            _meetingRepository = meetingRepository ?? new MeetingRepository(); // Fallback si null
             BookMeetingCommand = new Command(OnBookMeeting);
 
-            // Charger les données
             LoadServices();
             LoadEmployees();
             LoadClientMeetings();
         }
+
 
         private void LoadServices()
         {
@@ -89,17 +92,10 @@ namespace SGBDJeremy.ViewModels
 
         private void LoadClientMeetings()
         {
-            var meetings = DBServiceHelper.GetMeetingsByClientId(ConnectedClientId);
+            var meetings = _meetingRepository.GetMeetingsByClientId(ConnectedClientId);
             ClientMeetings.Clear();
-            PastMeetings.Clear();
-
             foreach (var m in meetings)
-            {
-                if (m.DateMeeting >= DateTime.Today)
-                    ClientMeetings.Add(m);
-                else
-                    PastMeetings.Add(m);
-            }
+                ClientMeetings.Add(m);
         }
 
         private void OnBookMeeting()
@@ -120,10 +116,10 @@ namespace SGBDJeremy.ViewModels
                 Status = "Prévu"
             };
 
-            DBServiceHelper.AddMeeting(newMeeting);
+            _meetingRepository.AddMeeting(newMeeting);
             Application.Current.MainPage.DisplayAlert("Succès", "Rendez-vous réservé !", "OK");
-
-            LoadClientMeetings(); // Refresh la liste
+            LoadClientMeetings();
         }
+
     }
 }
