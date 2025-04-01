@@ -66,7 +66,7 @@ namespace SGBDJeremy.Utilities.Data
 
         // Obtenir les rendez-vous d’un client donné
         // ⚠️ Obsolète - Utiliser IMeetingRepository à la place
-        [Obsolete("Utiliser MeetingRepository via IMeetingRepository")]
+        [Obsolete("Avec refacto on utilise MeetingRepository via IMeetingRepository")]
         #region OBSOLETE
         public static List<Meeting> GetMeetingsByClientId(int clientId)
         {
@@ -112,7 +112,7 @@ namespace SGBDJeremy.Utilities.Data
         // Ajouter un rendez-vous
         // ⚠️ Obsolète - Utiliser IMeetingRepository à la place
         #region OBSOLETE
-        [Obsolete("Utiliser MeetingRepository via IMeetingRepository")]
+        [Obsolete("Avec refacto on utilise MeetingRepository via IMeetingRepository")]
         public static void AddMeeting(Meeting meeting)
         {
             using SqlConnection connection = new SqlConnection(ConnectionString);
@@ -172,6 +172,7 @@ namespace SGBDJeremy.Utilities.Data
             return meetings;
         }
 
+        //Ajout d'un client (gestion des erreurs include)
         public static bool AddClient(Client c)
         {
             try

@@ -11,5 +11,7 @@ namespace SGBDJeremy.DAL.Interfaces
     {
         List<Meeting> GetMeetingsByClientId(int clientId);
         void AddMeeting(Meeting meeting);
+        List<Meeting> GetPastMeetingsByClientId(int clientId);
+
     }
 }

@@ -71,5 +71,46 @@ namespace SGBDJeremy.DAL.Repositories
 
             cmd.ExecuteNonQuery();
         }
+
+        public List<Meeting> GetPastMeetingsByClientId(int clientId)
+        {
+            var meetings = new List<Meeting>();
+
+            using SqlConnection connection = new SqlConnection(ConnectionString);
+            connection.Open();
+
+            string query = @"
+        SELECT M.MeetingID, M.DateMeeting, M.TimeMeeting, M.Status,
+               M.EmployeeId, M.ServiceId,
+               E.FirstName + ' ' + E.LastName AS EmployeeName,
+               S.Name AS ServiceName
+        FROM Meeting M
+        INNER JOIN Employee E ON M.EmployeeId = E.Id
+        INNER JOIN Service S ON M.ServiceId = S.Id
+        WHERE M.ClientId = @ClientId
+          AND M.DateMeeting < CAST(GETDATE() AS DATE)";
+
+            using SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@ClientId", clientId);
+
+            using SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                meetings.Add(new Meeting
+                {
+                    MeetingID = reader.GetInt32(0),
+                    DateMeeting = reader.GetDateTime(1),
+                    TimeMeeting = reader.GetTimeSpan(2),
+                    Status = reader.GetString(3),
+                    EmployeeId = reader.GetInt32(4),
+                    ServiceId = reader.GetInt32(5),
+                    EmployeeName = reader.GetString(6),
+                    ServiceName = reader.GetString(7)
+                });
+            }
+
+            return meetings;
+        }
+
     }
 }

@@ -13,19 +13,15 @@ namespace SGBDJeremy.ViewModels
 {
     public class ClientHomeViewModel : INotifyPropertyChanged
     {
-        // Événement pour la mise à jour de l’UI
         public event PropertyChangedEventHandler PropertyChanged;
         void OnPropertyChanged([CallerMemberName] string name = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
-        // ID du client connecté (à passer depuis la LoginPage)
         public int ConnectedClientId { get; set; }
 
-        // Liste des meetings
         public ObservableCollection<Meeting> ClientMeetings { get; set; } = new();
         public ObservableCollection<Meeting> PastMeetings { get; set; } = new();
 
-        // Formulaire de réservation
         public ObservableCollection<Service> Services { get; set; } = new();
         public ObservableCollection<Employee> Employees { get; set; } = new();
 
@@ -57,7 +53,6 @@ namespace SGBDJeremy.ViewModels
             set { _selectedEmployee = value; OnPropertyChanged(); }
         }
 
-        // Commande de réservation
         public ICommand BookMeetingCommand { get; }
 
         private readonly IMeetingRepository _meetingRepository;
@@ -65,14 +60,14 @@ namespace SGBDJeremy.ViewModels
         public ClientHomeViewModel(int clientId, IMeetingRepository meetingRepository = null)
         {
             ConnectedClientId = clientId;
-            _meetingRepository = meetingRepository ?? new MeetingRepository(); // Fallback si null
+            _meetingRepository = meetingRepository ?? new MeetingRepository();
             BookMeetingCommand = new Command(OnBookMeeting);
 
             LoadServices();
             LoadEmployees();
             LoadClientMeetings();
+            LoadPastMeetings(); 
         }
-
 
         private void LoadServices()
         {
@@ -98,11 +93,25 @@ namespace SGBDJeremy.ViewModels
                 ClientMeetings.Add(m);
         }
 
+        private void LoadPastMeetings()
+        {
+            var pastMeetings = _meetingRepository.GetPastMeetingsByClientId(ConnectedClientId);
+            PastMeetings.Clear();
+            foreach (var m in pastMeetings)
+                PastMeetings.Add(m);
+        }
+
         private void OnBookMeeting()
         {
             if (SelectedService == null || SelectedEmployee == null)
             {
                 Application.Current.MainPage.DisplayAlert("Erreur", "Veuillez sélectionner un service et un employé.", "OK");
+                return;
+            }
+
+            if (Tools.CheckTools.Date_Check_Entries.IsDateInPast(SelectedDate, SelectedTime))
+            {
+                Application.Current.MainPage.DisplayAlert("Erreur", "Impossible de réserver un rendez-vous dans le passé ! Ou alors il faut une dolorean 🚘...", "OK");
                 return;
             }
 
@@ -118,8 +127,11 @@ namespace SGBDJeremy.ViewModels
 
             _meetingRepository.AddMeeting(newMeeting);
             Application.Current.MainPage.DisplayAlert("Succès", "Rendez-vous réservé !", "OK");
+
             LoadClientMeetings();
+            LoadPastMeetings();
         }
+
 
     }
 }
