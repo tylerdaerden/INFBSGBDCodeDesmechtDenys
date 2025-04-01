@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:SGBDJeremy.ViewModels"
+    x:Class="SGBDJeremy.Views.RegisterClientPage"
+    Title="Inscription"
+    BackgroundColor="#1e1e1e">
+
+    <ContentPage.BindingContext>
+        <vm:RegisterClientViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Créer un compte client"
+                   FontSize="24"
+                   HorizontalOptions="Center"
+                   TextColor="White" />
+
+            <Entry Placeholder="Prénom" Text="{Binding FirstName}" />
+            <Entry Placeholder="Nom" Text="{Binding LastName}" />
+            <Entry Placeholder="Email" Keyboard="Email" Text="{Binding Email}" />
+            <Entry Placeholder="Téléphone" Keyboard="Telephone" Text="{Binding PhoneNumber}" />
+            <Entry Placeholder="Mot de passe" IsPassword="True" Text="{Binding Password}" />
+
+            <Button Text="S'inscrire"
+                    BackgroundColor="#7B1FA2"
+                    TextColor="White"
+                    Command="{Binding RegisterCommand}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -46,7 +46,7 @@ namespace SGBDJeremy.ViewModels
                 return;
             }
 
-            // Authentification selon le rôle sélectionné
+            // Authentification selon le rôle
             bool isAuthenticated = false;
 
             if (SelectedRole == "Client")
@@ -58,15 +58,41 @@ namespace SGBDJeremy.ViewModels
                 isAuthenticated = UserAuthService.AuthenticateEmployee(Email, Password);
             }
 
+            // Si authentification réussie
             if (isAuthenticated)
             {
                 await Shell.Current.DisplayAlert("Succès", "Connexion réussie en tant que " + SelectedRole, "OK");
-                // TODO : Rediriger selon rôle
+
+                if (SelectedRole == "Client")
+                {
+                    var client = DBAuthHelper.GetClientByEmail(Email);
+                    if (client != null)
+                    {
+                        // 🚀 Redirection vers la page du/de la client.e
+                        await Shell.Current.GoToAsync($"{nameof(Views.ClientHomePage)}?ClientId={client.Id}");
+                    }
+                }
+                else if (SelectedRole == "Employé")
+                {
+                    var employee = DBAuthHelper.GetEmployeeByEmail(Email);
+                    if (employee != null)
+                    {
+                        //await Shell.Current.DisplayAlert("Succès", "Connexion réussie en tant qu'employé", "OK");
+
+                        // 🚀 Redirection vers le Dashboard Employé
+                        await Shell.Current.GoToAsync($"{nameof(Views.EmployeeDashboardPage)}?EmployeeId={employee.Id}");
+                        return;
+                    }
+                }
+
+                return; // Fin du traitement
             }
-            else
-            {
-                await Shell.Current.DisplayAlert("Erreur", "Identifiants incorrects.", "OK");
-            }
+
+            // Sinon, message d’échec
+            await Shell.Current.DisplayAlert("Erreur", "Identifiants incorrects.", "OK");
         }
+
+
+
     }
 }

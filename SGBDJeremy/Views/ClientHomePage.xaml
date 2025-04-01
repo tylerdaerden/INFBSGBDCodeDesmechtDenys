@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SGBDJeremy.Views.ClientHomePage"
+             BackgroundColor="#1e1e1e"
+             Title="Accueil Client">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+
+            <Label Text="Bienvenue sur votre espace client"
+                   FontSize="22"
+                   TextColor="White"
+                   HorizontalOptions="Center" />
+
+            <Label Text="Vos rendez-vous" FontSize="18" TextColor="White" />
+
+            <CollectionView ItemsSource="{Binding ClientMeetings}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Stroke="#7B1FA2" StrokeThickness="2" StrokeShape="RoundRectangle 8">
+                            <VerticalStackLayout Padding="10" Spacing="4">
+                                <Label Text="{Binding DateMeeting, StringFormat='Date : {0:dd/MM/yyyy}'}" TextColor="White" />
+                                <Label Text="{Binding TimeMeeting, StringFormat='Heure : {0:hh\\:mm}'}" TextColor="White" />
+                                <Label Text="{Binding ServiceName}" TextColor="White" />
+                                <Label Text="{Binding EmployeeName}" TextColor="White" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Section Historique des anciens rdv -->
+            <BoxView HeightRequest="1" BackgroundColor="Gray" Margin="0,10" />
+            <Label Text="Historique de vos rendez-vous" FontSize="18" TextColor="White" />
+
+            <CollectionView ItemsSource="{Binding PastMeetings}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Stroke="#4A148C" StrokeThickness="2" StrokeShape="RoundRectangle 8">
+                            <VerticalStackLayout Padding="10" Spacing="4">
+                                <Label Text="{Binding DateMeeting, StringFormat='Date : {0:dd-MM-yyyy}'}" TextColor="Gray" />
+                                <Label Text="{Binding TimeMeeting, StringFormat='Heure : {0:hh\\:mm}'}" TextColor="Gray" />
+                                <Label Text="{Binding ServiceName}" TextColor="Gray" />
+                                <Label Text="{Binding EmployeeName}" TextColor="Gray" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+
+            <BoxView HeightRequest="1" BackgroundColor="Gray" Margin="0,10" />
+
+            <Label Text="Prendre un rendez-vous" FontSize="18" TextColor="White" />
+
+            <DatePicker Date="{Binding SelectedDate}" />
+            <TimePicker Time="{Binding SelectedTime}" />
+
+            <Picker Title="Service" ItemsSource="{Binding Services}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedService}" />
+            <Picker Title="Employé" ItemsSource="{Binding Employees}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding SelectedEmployee}" />
+
+            <Button 
+                Text="Réserver" 
+                BackgroundColor="#7B1FA2" 
+                TextColor="White" 
+                Command="{Binding BookMeetingCommand}" 
+            />
+
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

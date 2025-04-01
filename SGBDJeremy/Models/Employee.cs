@@ -9,59 +9,71 @@ namespace SGBDJeremy.Models
 {
     public class Employee
     {
+            private int _id;
+            private string _firstName;
+            private string _lastName;
+            private string _phoneNumber;
+            private string _email;
+            private string _password;
+            private string _role;
 
-        private int _employee_ID;
-        private string _userName;
-        private string _role;
-        private bool _isAvalaible;
-        private string _passwordHash;
-        private string _salt;
+            public int Id
+            {
+                get => _id;
+                set => _id = value;
+            }
+
+            public string FirstName
+            {
+                get => _firstName;
+                set => _firstName = value;
+            }
+
+            public string LastName
+            {
+                get => _lastName;
+                set => _lastName = value;
+            }
+
+            public string PhoneNumber
+            {
+                get => _phoneNumber;
+                set => _phoneNumber = value;
+            }
+
+            public string Email
+            {
+                get => _email;
+                set => _email = value;
+            }
+
+            public string Password
+            {
+                get => _password;
+                set => _password = value;
+            }
+
+            public string Role
+            {
+                get => _role;
+                set => _role = value;
+            }
+
+            public string FullName => $"{FirstName} {LastName}";
+        
+    
 
 
-        public int EmployeeID 
-        { 
-            get => _employee_ID;
-            set => _employee_ID = value;
-        }
-        public string UserName 
-        { 
-            get => _userName;
-            set => _userName = value;
-        }
+    //methods
 
-        public string Role
-        {
-            get => _role;
-            set => _role = value;
-        }
-        public bool Avalaible
-        {
-            get => _isAvalaible;
-            set => _isAvalaible = value;
-        }
-        public string PasswordHash
-        {
-            get => _passwordHash; 
-            set => _passwordHash = value;
-        }
-
-        //Pasword Salting = a random piece of data is added to the password before it runs through the hashing algorithm, making it unique and harder to crack. When using both hashing and salting, even if two users choose the same password, salting adds random characters to each password when the users enter them.
-        public string Salt
-        {
-            get => _salt; 
-            set => _salt = value;
-        }
-
-        //methods
-
-        /// <summary>
-        /// Check if Selected role is valid
-        /// non sensitive case and accept a underscore
-        /// no numbers accepted 
-        /// </summary>
-        /// <param name="roleToCheck">role to Check</param>
-        /// <returns>Boolean true if valid otherwise returns false</returns>
-        public static bool CheckRole(string roleToCheck)
+    /// <summary>
+    /// Check if Selected role is valid
+    /// non sensitive case and accept a underscore
+    /// no numbers accepted 
+    /// </summary>
+    /// <param name="roleToCheck">role to Check</param>
+    /// <returns>Boolean true if valid otherwise returns false</returns>
+    public static bool CheckRole(string roleToCheck)
         {
             if(!string.IsNullOrEmpty(roleToCheck) && !string.IsNullOrWhiteSpace(roleToCheck))
             {

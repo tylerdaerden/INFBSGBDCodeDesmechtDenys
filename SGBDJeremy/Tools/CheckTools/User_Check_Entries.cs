@@ -23,20 +23,23 @@ namespace SGBDJeremy.Tools.CheckTools
         /// <exception cref="ArgumentException"></exception>
         public static bool CheckEmail(object mailtocheck)
         {
-            // type verification
-            if (mailtocheck is not string email)
+            if (mailtocheck is not string email || string.IsNullOrWhiteSpace(email))
             {
-                throw new ArgumentException("Erreur : l'email doit être une chaîne de caractères.");
+                return false;
             }
+
             var regex = new Regex(@"^(?!.*\.\.)([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]{1,64})@([a-zA-Z0-9-]{1,63})\.([a-zA-Z]{2,10})$", RegexOptions.IgnoreCase);
             return regex.IsMatch(email);
         }
 
 
+
         /// <summary>
-        /// Validate 
+        /// Validate a FamilyName/Surname
+        /// Accept a white Space between some name char (case of Name with space like "Particule Name"
+        /// Add of latin char (in case of Name containing latin char like "é" , "è" , "û" , "ö" etc ...
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">name to validate</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         public static bool CheckName(object name)
@@ -44,7 +47,7 @@ namespace SGBDJeremy.Tools.CheckTools
             // type and null or white space verification
             if (name is not string nameStr || string.IsNullOrWhiteSpace(nameStr))
             {
-                throw new ArgumentException("Erreur,name doit être une chaîne de caractères non vide.");
+                return false;
             }
             // Vérification de la longueur
             if (nameStr.Length > 50)
@@ -59,45 +62,47 @@ namespace SGBDJeremy.Tools.CheckTools
             return true;
         }
 
-        /// <summary>
-        /// Validate a FamilyName : add of optionnal group in regex so it can accept composed name (ex Name-Name2 , present in certains culture or in married couples)
-        /// Accept a white Space between some name char (case of Name with space like "Particule Name"
-        /// Add of latin char (in case of Name containing latin char like "é" , "è" , "û" , "ö" etc ...
-        /// </summary>
-        /// <param name="name">the name to validate</param>
-        /// <returns>>Boolean true if valid otherwise returns false</returns>
-        public static bool NameValidation(string name)
-        {
-            if (!string.IsNullOrEmpty(name) && !string.IsNullOrWhiteSpace(name))
-            {
-                if (Regex.IsMatch(name, @"^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[-' ][A-Za-zÀ-ÖØ-öø-ÿ]+)*$"))
-                {
-                    return true;
-                }
-                return false;
-            }
-            return false;
-        }
+        #region OBSOLETE
+        ///// <summary>
+        ///// Validate a FamilyName : add of optionnal group in regex so it can accept composed name (ex Name-Name2 , present in certains culture or in married couples)
+        ///// Accept a white Space between some name char (case of Name with space like "Particule Name"
+        ///// Add of latin char (in case of Name containing latin char like "é" , "è" , "û" , "ö" etc ...
+        ///// </summary>
+        ///// <param name="name">the name to validate</param>
+        ///// <returns>>Boolean true if valid otherwise returns false</returns>
+        //public static bool NameValidation(string name)
+        //{
+        //    if (!string.IsNullOrEmpty(name) && !string.IsNullOrWhiteSpace(name))
+        //    {
+        //        if (Regex.IsMatch(name, @"^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[-' ][A-Za-zÀ-ÖØ-öø-ÿ]+)*$"))
+        //        {
+        //            return true;
+        //        }
+        //        return false;
+        //    }
+        //    return false;
+        //}
 
-        /// <summary>
-        /// Validate a SurName : add of optionnal group in regex so it can accept composed name up to 3 occurence (ex SurName-SurName2-Surname3)
-        /// Accept a white Space between some name char (case of Name with space like "Surname1 Surname2"
-        /// Add of latin char (in case of Name containing latin char like "é" , "è" , "û" , "ö" etc ...
-        /// </summary>
-        /// <param name="surname"></param>
-        /// <returns>Boolean true if valid otherwise returns false</returns>
-        public static bool SurnameValidation(string surname)
-        {
-            if (!string.IsNullOrEmpty(surname) && !string.IsNullOrWhiteSpace(surname))
-            {
-                if (Regex.IsMatch(surname, @"^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[-' ][A-Za-zÀ-ÖØ-öø-ÿ]+)*$"))
-                {
-                    return true;
-                }
-                return false;
-            }
-            return false;
-        }
+        ///// <summary>
+        ///// Validate a SurName : add of optionnal group in regex so it can accept composed name up to 3 occurence (ex SurName-SurName2-Surname3)
+        ///// Accept a white Space between some name char (case of Name with space like "Surname1 Surname2"
+        ///// Add of latin char (in case of Name containing latin char like "é" , "è" , "û" , "ö" etc ...
+        ///// </summary>
+        ///// <param name="surname"></param>
+        ///// <returns>Boolean true if valid otherwise returns false</returns>
+        //public static bool SurnameValidation(string surname)
+        //{
+        //    if (!string.IsNullOrEmpty(surname) && !string.IsNullOrWhiteSpace(surname))
+        //    {
+        //        if (Regex.IsMatch(surname, @"^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[-' ][A-Za-zÀ-ÖØ-öø-ÿ]+)*$"))
+        //        {
+        //            return true;
+        //        }
+        //        return false;
+        //    }
+        //    return false;
+        //} 
+        #endregion
 
         /// <summary>
         /// Validate a Belgian Phone Number based on +32 / 0032 indicators or 04 folowed by 8 numbers
@@ -110,9 +115,13 @@ namespace SGBDJeremy.Tools.CheckTools
         {
             if (phoneNumber is not string number || string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentException("Erreur , phoneNumber doit être une chaîne de caractères (non vide.)");
+                return false;
             }
-            var regex = new Regex(@"^(\+32|0032|0)?\s?4\d{2}([/\s.-]?\d{2}){3}$");
+            //too restricted regex ↓↓↓
+            //var regex = new Regex(@"^(\+32|0032|0)?\s?4\d{2}([/\s.-]?\d{2}){3}$");
+            //lighter regex here ↓↓↓
+            var regex = new Regex(@"^(\+32|0032|0)?4\d{8}$");
+
             if (!regex.IsMatch(number))
             {
                 return false;
