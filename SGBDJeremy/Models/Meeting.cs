@@ -73,7 +73,7 @@
             set => _employeeName = value;
         }
 
-        // Méthodes métiers (à implémenter plus tard)
+        // Méthodes métiers (qui devraient figurer dans IMeeting si elles étaient développées si le programme était + poussé et non ici , je les ai mise pour coller au Diagramme reçu de Jeremy )
         public void ConfirmMeeting() => throw new NotImplementedException();
         public void CancelMeeting() => throw new NotImplementedException();
         public void UpdateMeeting(DateTime newDate) => throw new NotImplementedException();

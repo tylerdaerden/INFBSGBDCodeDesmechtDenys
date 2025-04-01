@@ -31,9 +31,10 @@
             set => _price = value;
         }
 
-        public void DisplayDescription()
-        {
-            throw new NotImplementedException();
-        }
+        //les methodes ne sont plus dans les classes
+        //public void DisplayDescription()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGBDJeremy.Models
 {
+	//Implémentation plus tard si projet + poussé
     public class Payment
     {
 		private int _paymentID;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGBDJeremy.Models
 {
-    //Should be turn into a PopUp !!! 
+    //Classe présente dans le diagramme reçu, pas utilisée car usage d'alertes , mais si projet + poussée ça aurait été implémenté
     public class Notification
     {
         private string _notificationID;

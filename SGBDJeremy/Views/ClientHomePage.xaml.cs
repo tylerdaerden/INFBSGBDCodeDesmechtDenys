@@ -1,4 +1,7 @@
+using SGBDJeremy.DAL.Interfaces;
 using SGBDJeremy.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+
 
 namespace SGBDJeremy.Views
 {
@@ -10,6 +13,7 @@ namespace SGBDJeremy.Views
         public ClientHomePage()
         {
             InitializeComponent();
+
         }
 
         protected override void OnAppearing()
@@ -17,13 +21,14 @@ namespace SGBDJeremy.Views
             base.OnAppearing();
 
             // Le BindingContext est défini une fois que ClientId est reçu
-            BindingContext = new ClientHomeViewModel(ClientId);
+            var repo = App.ServiceProvider.GetService<IMeetingRepository>();
+            BindingContext = new ClientHomeViewModel(ClientId, repo);
         }
 
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
             await Shell.Current.DisplayAlert("Déconnexion", "Vous êtes déconnecté.", "OK");
-            await Shell.Current.GoToAsync("//LoginPage"); // Double slash = reset de navigation stack
+            await Shell.Current.GoToAsync("//LoginPage"); 
         }
 
     }

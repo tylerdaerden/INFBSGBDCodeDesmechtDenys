@@ -5,7 +5,7 @@ namespace SGBDJeremy.Models
 {
     public class Client
     {
-        // Fields (backing fields)
+        // Champs de propriétés
         private int _id;
         private string _firstName;
         private string _lastName;
@@ -13,7 +13,7 @@ namespace SGBDJeremy.Models
         private string _email;
         private string _password;
 
-        // Properties
+        // Propriétés
         public int Id
         {
             get => _id;
@@ -50,16 +50,16 @@ namespace SGBDJeremy.Models
             set => _password = value;
         }
 
-        // Méthodes métier (non modifiées)
-        public void BookAMeeting(Client clientbook, Meeting meetingbook)
-        {
-            throw new NotImplementedException();
-        }
+        // Méthodes métier déplacées dans les ViewsModels
+        //public void BookAMeeting(Client clientbook, Meeting meetingbook)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void BrowseHistory()
-        {
-            throw new NotImplementedException();
-        }
+        //public void BrowseHistory()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         #region OBSOLETE METHODS (MOVED TO USER_CHECK_ENTRIES)
         ///// <summary>

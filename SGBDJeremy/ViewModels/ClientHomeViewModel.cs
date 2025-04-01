@@ -60,7 +60,7 @@ namespace SGBDJeremy.ViewModels
         public ClientHomeViewModel(int clientId, IMeetingRepository meetingRepository = null)
         {
             ConnectedClientId = clientId;
-            _meetingRepository = meetingRepository ?? new MeetingRepository();
+            _meetingRepository = meetingRepository;
             BookMeetingCommand = new Command(OnBookMeeting);
 
             LoadServices();
