@@ -142,14 +142,17 @@ namespace SGBDJeremy.Utilities.Data
             connection.Open();
 
             string query = @"
-        SELECT M.MeetingID, M.DateMeeting, M.TimeMeeting, M.Status,
-               M.ClientId,
-               C.FirstName + ' ' + C.LastName AS ClientName,
-               S.Name AS ServiceName
-        FROM Meeting M
-        INNER JOIN Client C ON M.ClientId = C.Id
-        INNER JOIN Service S ON M.ServiceId = S.Id
-        WHERE M.EmployeeId = @EmployeeId";
+                SELECT M.MeetingID, M.DateMeeting, M.TimeMeeting, M.Status,
+                   M.ClientId,
+                   C.FirstName + ' ' + C.LastName AS ClientName,
+                   S.Name AS ServiceName
+                FROM Meeting M
+                INNER JOIN Client C ON M.ClientId = C.Id
+                INNER JOIN Service S ON M.ServiceId = S.Id
+                WHERE M.EmployeeId = @EmployeeId
+                  AND (M.DateMeeting > CAST(GETDATE() AS DATE)
+                       OR (M.DateMeeting = CAST(GETDATE() AS DATE) AND M.TimeMeeting >= CAST(GETDATE() AS TIME)))
+                ORDER BY M.DateMeeting ASC, M.TimeMeeting ASC";
 
             using SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@EmployeeId", employeeId);

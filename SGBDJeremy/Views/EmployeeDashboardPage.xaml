@@ -34,6 +34,13 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+            <Button 
+                Text="Déconnexion" 
+                BackgroundColor="#444" 
+                TextColor="White" 
+                Clicked="OnLogoutClicked" />
+
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

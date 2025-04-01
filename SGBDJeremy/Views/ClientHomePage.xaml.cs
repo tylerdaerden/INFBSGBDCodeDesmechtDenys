@@ -19,5 +19,12 @@ namespace SGBDJeremy.Views
             // Le BindingContext est défini une fois que ClientId est reçu
             BindingContext = new ClientHomeViewModel(ClientId);
         }
+
+        private async void OnLogoutClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.DisplayAlert("Déconnexion", "Vous êtes déconnecté.", "OK");
+            await Shell.Current.GoToAsync("//LoginPage"); // Double slash = reset de navigation stack
+        }
+
     }
 }

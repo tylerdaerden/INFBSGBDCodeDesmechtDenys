@@ -20,5 +20,12 @@ namespace SGBDJeremy.Views
             // On définit le ViewModel ici, une fois que l'ID est transmis
             BindingContext = new EmployeeDashboardViewModel(EmployeeId);
         }
+
+        private async void OnLogoutClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.DisplayAlert("Déconnexion", "Vous êtes déconnecté.", "OK");
+            await Shell.Current.GoToAsync("//LoginPage"); // Double slash = reset de navigation stack
+        }
+
     }
 }

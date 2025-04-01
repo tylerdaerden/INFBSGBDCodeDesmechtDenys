@@ -82,6 +82,12 @@
                     BackgroundColor="#7B1FA2"
                     TextColor="White"
                     Command="{Binding BookMeetingCommand}" />
+            <Button 
+                    Text="Déconnexion" 
+                    BackgroundColor="#444" 
+                    TextColor="White" 
+                    Clicked="OnLogoutClicked" />
+
 
         </StackLayout>
     </ScrollView>
